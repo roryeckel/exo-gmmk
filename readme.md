@@ -3,10 +3,10 @@
 This is a fork of the QMK firmware with my special keymapping for the ANSI GMMK Pro
 
 ## Features
-1. Hold FN to light up the second layer keys in white (you'll want to see what they do based on the LAYER variable in [keymap.c](https://github.com/roryeckel/exo-gmmk/blob/e11195a1ec17c0f14a3fc4c4a2e45d27ca324a8d/keyboards/gmmk/pro/ansi/keymaps/roryeckel/keymap.c) - look up the keycodes [here](https://github.com/qmk/qmk_firmware/blob/master/docs/keycodes.md))
-2. Volume dial now working, hold FN while turning for PC brightness
-3. Caps lock now turns red when active
-4. Disabled buggy lighting FX, enabled other cool ones
+- Hold FN to light up the second layer keys in white (you'll want to see what they do based on the LAYER variable in [keymap.c](https://github.com/roryeckel/exo-gmmk/blob/e11195a1ec17c0f14a3fc4c4a2e45d27ca324a8d/keyboards/gmmk/pro/ansi/keymaps/roryeckel/keymap.c) - look up the keycodes [here](https://github.com/qmk/qmk_firmware/blob/master/docs/keycodes.md))
+- Volume dial now working, hold FN while turning for PC brightness
+- Caps lock now turns red when active
+- Disabled buggy lighting FX, enabled other cool ones
 
 ## GUI Installation from binary
 Warning: Completely untested, Windows/Mac only
