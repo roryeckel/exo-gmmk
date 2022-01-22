@@ -12,7 +12,7 @@ I use this daily but I am not responsible for your board breaking. Feel free to 
 ## GUI Installation from binary
 Warning: Completely untested, Windows/Mac only
 1. Install [qmk_toolbox](https://github.com/qmk/qmk_toolbox)
-2. Download the binary [qmmk_pro_ansi_roryeckel.bin](https://github.com/roryeckel/exo-gmmk/blob/master/gmmk_pro_ansi_roryeckel.bin) from this repo
+2. Download the binary [gmmk_pro_ansi_roryeckel.bin](https://github.com/roryeckel/exo-gmmk/blob/master/gmmk_pro_ansi_roryeckel.bin) from this repo
 3. Use the GUI to select/flash the binary file
 4. Hard reset the keyboard into bootloader mode (on Glorious Core, hold spacebar and b while plugging it in)
 
