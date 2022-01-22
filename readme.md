@@ -1,6 +1,7 @@
 # Quantum Mechanical Keyboard Firmware
 
-This is a fork of the QMK firmware with my special keymapping for the ANSI GMMK Pro
+This is a fork of the QMK firmware with my special keymapping for the ANSI GMMK Pro.
+I use this daily but I am not responsible for your board breaking. Feel free to leave issues & suggestions.
 
 ## Features
 - Hold FN to light up the second layer keys in white (you'll want to see what they do based on the LAYER variable in [keymap.c](https://github.com/roryeckel/exo-gmmk/blob/e11195a1ec17c0f14a3fc4c4a2e45d27ca324a8d/keyboards/gmmk/pro/ansi/keymaps/roryeckel/keymap.c) - look up the keycodes [here](https://github.com/qmk/qmk_firmware/blob/master/docs/keycodes.md))
