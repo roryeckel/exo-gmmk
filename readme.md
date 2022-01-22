@@ -20,7 +20,7 @@ Only tested on Linux
 1. Install [qmk_cli](https://github.com/qmk/qmk_cli) from your preferred package manager
 2. `qmk clone https://github.com/roryeckel/exo-gmmk.git`
 3. Enter `exo-gmmk` directory
-4. `util/qmk_install.sh`
+4. Execute `util/qmk_install.sh`
 5. `qmk compile`
 6. `qmk flash`
 7. Hard reset the keyboard into bootloader mode (on Glorious Core, hold spacebar and b while plugging it in)
