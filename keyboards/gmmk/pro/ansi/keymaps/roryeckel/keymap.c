@@ -87,8 +87,8 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 
 void suspend_power_down_user() {
-    rgb_matrix_set_suspend_state(true);
     rgb_matrix_set_color_all(RGB_OFF);
+    rgb_matrix_set_suspend_state(true);
 }
 
 void suspend_wakeup_init_user() {
