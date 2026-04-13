@@ -67,7 +67,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     } else {
         tap_code(fn_layer_active ? KC_BRID : KC_VOLD);
     }
-    return true;
+    return false;
 }
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
