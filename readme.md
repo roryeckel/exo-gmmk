@@ -1,36 +1,75 @@
-# Quantum Mechanical Keyboard Firmware
+# GMMK Pro Custom QMK Firmware
 
-[![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
-[![Discord](https://img.shields.io/discord/440868230475677696.svg)](https://discord.gg/qmk)
-[![Docs Status](https://img.shields.io/badge/docs-ready-orange.svg)](https://docs.qmk.fm)
-[![GitHub contributors](https://img.shields.io/github/contributors/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/pulse/monthly)
-[![GitHub forks](https://img.shields.io/github/forks/qmk/qmk_firmware.svg?style=social&label=Fork)](https://github.com/qmk/qmk_firmware/)
+Personal [QMK](https://docs.qmk.fm) firmware fork for the GMMK Pro (ANSI, Rev 1).
 
-This is a keyboard firmware based on the [tmk\_keyboard firmware](https://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR and ARM controllers, and more specifically, the [OLKB product line](https://olkb.com), the [ErgoDox EZ](https://ergodox-ez.com) keyboard, and the Clueboard product line.
+## Custom keymap features
 
-## Documentation
+- **Fn layer highlighting** -- hold Fn to light active layer-1 keys in white
+- **Rotary encoder** -- volume control on the base layer, screen brightness while Fn is held
+- **Caps Lock indicator** -- lights the indicator LED red
+- **RGB sleep** -- RGB matrix turns off after 10 minutes of inactivity
+- **Media keys** -- Fn+F5/F6/F7/F8 for Previous/Next/Play/Stop
+- **NKRO toggle** -- Fn+N to switch between 6KRO and NKRO (persisted to EEPROM)
+- **Calculator** -- Fn+C opens the system calculator
+- **Bootloader** -- Fn+\ enters the bootloader for flashing
 
-* [See the official documentation on docs.qmk.fm](https://docs.qmk.fm)
+The keymap source lives in [`keyboards/gmmk/pro/rev1/ansi/keymaps/roryeckel/`](keyboards/gmmk/pro/rev1/ansi/keymaps/roryeckel/).
 
-The docs are powered by [VitePress](https://vitepress.dev/). They are also viewable offline; see [Previewing the Documentation](https://docs.qmk.fm/#/contributing?id=previewing-the-documentation) for more details.
+## Building
 
-You can request changes by making a fork and opening a [pull request](https://github.com/qmk/qmk_firmware/pulls).
+Linux or WSL is recommended. On Windows, WSL avoids the need for a separate MSYS2 installation.
 
-## Supported Keyboards
+### 1. Install the QMK CLI
 
-* [Planck](/keyboards/planck/)
-* [Preonic](/keyboards/preonic/)
-* [ErgoDox EZ](/keyboards/ergodox_ez/)
-* [Clueboard](/keyboards/clueboard/)
-* [Cluepad](/keyboards/clueboard/17/)
-* [Atreus](/keyboards/atreus/)
+```sh
+curl -fsSL https://install.qmk.fm | sh
+```
 
-The project also includes community support for [lots of other keyboards](/keyboards/).
+### 2. Clone and set up
 
-## Maintainers
+Clone the repo **inside the Linux/WSL filesystem** (not under `/mnt/c/`) for build performance:
 
-QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, [Hasu](https://github.com/tmk). The OLKB product firmwares are maintained by [Jack Humbert](https://github.com/jackhumbert), the Ergodox EZ by [ZSA Technology Labs](https://github.com/zsa), the Clueboard by [Zach White](https://github.com/skullydazed), and the Atreus by [Phil Hagelberg](https://github.com/technomancy).
+```sh
+git clone https://github.com/roryeckel/exo-gmmk.git ~/qmk_firmware
+cd ~/qmk_firmware
+qmk setup -H ~/qmk_firmware
+```
 
-## Official Website
+Answer `y` to all prompts.
 
-[qmk.fm](https://qmk.fm) is the official website of QMK, where you can find links to this page, the documentation, and the keyboards supported by QMK.
+### 3. Compile
+
+```sh
+qmk compile -kb gmmk/pro/rev1/ansi -km roryeckel
+```
+
+This produces `gmmk_pro_rev1_ansi_roryeckel.bin` in the repo root.
+
+## Flashing
+
+### Option A: QMK CLI (Linux native)
+
+```sh
+qmk flash -kb gmmk/pro/rev1/ansi -km roryeckel
+```
+
+### Option B: QMK Toolbox (Windows / macOS)
+
+1. Download [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases/latest).
+2. If you built in WSL, copy the `.bin` to your Windows filesystem:
+   ```sh
+   cp ~/qmk_firmware/gmmk_pro_rev1_ansi_roryeckel.bin /mnt/c/Users/$USER/Desktop/
+   ```
+3. Open QMK Toolbox, select the `.bin` file, and flash.
+
+### Entering the bootloader
+
+Use any of the following to put the keyboard into bootloader mode:
+
+- Hold **Esc** while plugging in USB
+- Hold the **reset switch** on the underside of the PCB while plugging in USB
+- Press **Fn+\\** from the default layer (once this keymap is already flashed)
+
+## Upstream
+
+This fork is based on [qmk/qmk_firmware](https://github.com/qmk/qmk_firmware). See the [QMK documentation](https://docs.qmk.fm) for general reference.
