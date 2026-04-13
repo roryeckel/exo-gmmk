@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      Ct_L     Win_L    Alt_L                               SPACE                               Alt_R    FN       Ct_R     Left     Down     Right
 
 
-    // The FN key by default maps to a momentary toggle to layer 1 to provide access to the RESET key (to put the board into bootloader mode). Without
+    // The FN key by default maps to a momentary toggle to layer 1 to provide access to the QK_BOOT key (to put the board into bootloader mode). Without
     // this mapping, you have to open the case to hit the button on the bottom of the PCB (near the USB cable attachment) while plugging in the USB
     // cable to get the board into bootloader mode - definitely not fun when you're working on your QMK builds. Remove this and put it back to KC_RGUI
     // if that's your preference.
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT(
         _______, _______, _______, _______, _______, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, _______, _______, _______, _______, _______,          _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          RGB_TOG,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,            RGB_VAI,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,         RGB_VAI,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          RGB_VAD,
         _______,          _______, _______, KC_CALC, _______, _______, NK_TOGG, _______, _______, _______, _______,          _______, RGB_MOD, RGB_HUI,
         _______, _______, _______,                            _______,                            _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
@@ -60,15 +60,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
+    const bool fn_layer_active = IS_LAYER_ON(1);
+
     if (clockwise) {
-        tap_code(IS_LAYER_ON(0) ? KC_VOLU : KC_BRIU);
+        tap_code(fn_layer_active ? KC_BRIU : KC_VOLU);
     } else {
-        tap_code(IS_LAYER_ON(0) ? KC_VOLD : KC_BRID);
+        tap_code(fn_layer_active ? KC_BRID : KC_VOLD);
     }
     return true;
 }
 
-void rgb_matrix_indicators_advanced_user(unsigned char led_min, unsigned char led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t layer = get_highest_layer(layer_state);
     if (layer > 0) {
         for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
@@ -81,13 +83,11 @@ void rgb_matrix_indicators_advanced_user(unsigned char led_min, unsigned char le
             }
         }
     }
-    led_t led_state = host_keyboard_led_state();
-
-    // https://github.com/qmk/qmk_firmware/pull/19753/commits/d1bb5139741bc7e7133d96610bd903ea8494b8df
-
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+    if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(3, RGB_RED);
     }
+
+    return true;
 }
 
 void suspend_power_down_user() {
